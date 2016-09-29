@@ -1,0 +1,33 @@
+{
+  "name": "badu-navigation-api",
+  "version": "1.0.0",
+  "description": "API of badu-navigation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "NODE_ENV=test mocha --recursive",
+    "cover": "NODE_ENV=test istanbul cover _mocha -- --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hfut-xcsoft/badu-navigation.git"
+  },
+  "author": "Dremy",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hfut-xcsoft/badu-navigation/issues"
+  },
+  "homepage": "https://github.com/hfut-xcsoft/badu-navigation#readme",
+  "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-register": "^6.16.0",
+    "koa": "^2.0.0",
+    "koa-router": "^7.0.1",
+    "mongoose": "^4.6.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.0"
+  }
+}
