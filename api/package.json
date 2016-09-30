@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "NODE_ENV=test mocha --recursive",
-    "cover": "NODE_ENV=test nyc npm test && rm -rf .nyc_output"
+    "cover": "NODE_ENV=test nyc npm test"
   },
   "repository": {
     "type": "git",
