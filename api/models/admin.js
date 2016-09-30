@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.ObjectId;
+const ObjectId = Schema.Types.ObjectId;
 const utils = require('../commons/utils');
 
 const AdminSchema = new Schema({
-  _id: ObjectId,
   username: String,
   password: String
 });

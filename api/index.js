@@ -1,4 +1,1 @@
-require('babel-register')({
-  plugins: ['transform-async-to-generator']
-});
-require('./app.js');
+module.exports = require('./app.js');

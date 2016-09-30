@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.ObjectId;
+const ObjectId = Schema.Types.ObjectId;
 
-const WebsiteSchema = new Schema({
-  _id: ObjectId,
+const VisitDaySchema = new Schema({
   date: Date,
   websites: [
     {
@@ -13,6 +12,6 @@ const WebsiteSchema = new Schema({
   ]
 });
 
-const Website = mongoose.model('Website', WebsiteSchema);
+const VisitDay = mongoose.model('VisitDay', VisitDaySchema);
 
-module.exports = Website;
+module.exports = VisitDay;
