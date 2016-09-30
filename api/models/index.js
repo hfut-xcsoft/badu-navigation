@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 exports.Admin = require('./admin');
 exports.Category = require('./category');
 exports.Feedback = require('./feedback');
-exports.Recommend = require('./recommend');
+exports.Submit = require('./submit');
 exports.Subcategory = require('./subcategory');
-exports.VisitDay = require('./visit_day');
+exports.Statistic = require('./statistic');
 exports.Website = require('./website');
