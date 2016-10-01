@@ -39,6 +39,7 @@ websiteController.getWebsite = async ctx => {
 };
 
 websiteController.updateWebsite = async ctx => {
+  'use strict';
   const body = easycopy(ctx.request.body,
     ['name', 'url', 'icon_url', 'description', 'weights', 'recommend_by', 'subcategory'],
     { undefined: false });

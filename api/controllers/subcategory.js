@@ -47,6 +47,7 @@ subcategoryController.getSubcategory = async ctx => {
 };
 
 subcategoryController.updateSubcategory = async ctx => {
+  'use strict';
   const body = easycopy(ctx.request.body,
     ['name', 'slug', 'icon_url', 'description', 'weights', 'category'],
     { undefined: false }
