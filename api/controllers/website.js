@@ -45,10 +45,12 @@ websiteController.updateWebsite = async ctx => {
     { undefined: false });
   let website = ctx.website;
   if (body.subcategory && body.subcategory != website.subcategory) {
-    const [subcategory, targetSubcategory] = await Promise.all([
+    const result = await Promise.all([
       Subcategory.getById(website.subcategory),
       Subcategory.getById(body.subcategory)
     ]);
+    const subcategory = result[0];
+    const targetSubcategory = result[1];
     await Promise.all([
       subcategory && subcategory.removeWebsite(website),
       targetSubcategory && targetSubcategory.pushWebsite(website)

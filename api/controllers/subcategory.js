@@ -54,10 +54,12 @@ subcategoryController.updateSubcategory = async ctx => {
   );
   let subcategory = ctx.subcategory;
   if (body.category && body.category != subcategory.category) {
-    const [category, targetCategory] = await Promise.all([
+    const result = await Promise.all([
       Category.getById(subcategory.category),
       Category.getById(body.category)
     ]);
+    const category = result[0];
+    const targetCategory = result[1];
     if (!targetCategory) {
       throw new HttpError.NotFoundError('分类不存在');
     }
