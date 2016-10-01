@@ -1,0 +1,62 @@
+{
+  "name": "badu-navigation-api",
+  "version": "1.0.0",
+  "description": "API of badu-navigation",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "NODE_ENV=test mocha --recursive",
+    "cover": "NODE_ENV=test nyc npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hfut-xcsoft/badu-navigation.git"
+  },
+  "author": "Dremy",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/hfut-xcsoft/badu-navigation/issues"
+  },
+  "homepage": "https://github.com/hfut-xcsoft/badu-navigation#readme",
+  "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-register": "^6.16.0",
+    "easy-copy": "^1.0.1",
+    "koa": "^2.0.0",
+    "koa-bodyparser": "^2.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-router": "^7.0.1",
+    "mongoose": "^4.6.1",
+    "some-http-error": "^0.2.0"
+  },
+  "devDependencies": {
+    "babel-plugin-istanbul": "^2.0.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0",
+    "nyc": "^8.3.0",
+    "supertest": "^2.0.0"
+  },
+  "babel": {
+    "plugins": [
+      "transform-async-to-generator"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul"
+        ]
+      }
+    }
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  }
+}
