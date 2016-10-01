@@ -3,12 +3,14 @@ const categoryController = require('./category');
 const subcategoryController = require('./subcategory');
 const websiteController = require('./website');
 const feedbackController = require('./feedback');
+const statisticController = require('./statistic');
 
 const router = new Router();
 const categories = new Router();
 const subcategories = new Router();
 const websites = new Router();
 const feedbacks = new Router();
+const statistics = new Router();
 
 websites
   .get('/', websiteController.getWebsites)
@@ -41,6 +43,11 @@ feedbacks
   .get('/', feedbackController.getAllFeedbacks)
   .post('/', feedbackController.createFeedback);
 router.use('/feedbacks', feedbacks.routes());
+
+statistics
+  .post('/', statisticController.addStatistic);
+router.use('/statistics', statistics.routes());
+
 
 
 module.exports = router.routes();

@@ -12,7 +12,7 @@ helper.clear = (collection, callback) => {
 
 helper.create = (collection, obj, callback) => {
   return new Promise((resolve, reject)  => {
-    mongoose.connection.collections[collection].save(obj, result => {
+    mongoose.connection.collections[collection].save(obj, (err, result) => {
       callback && callback(result);
       resolve(result);
     });
