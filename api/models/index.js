@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'test') {
 } else {
   mongoose.connect(config.mongodb);
 }
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
   mongoose.set('debug', true);
 }
 

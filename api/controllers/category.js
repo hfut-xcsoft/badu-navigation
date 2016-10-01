@@ -5,7 +5,7 @@ const easycopy = require('easy-copy');
 const categoryController = {};
 
 categoryController.assert = async (id, ctx, next) => {
-  if (/[a-z0-9]{24}/.test(id)) {
+  if (/[a-f0-9]{24}/.test(id)) {
     ctx.category = await Category.getById(id);
   } else {
     ctx.category = await Category.getBySlug(id);

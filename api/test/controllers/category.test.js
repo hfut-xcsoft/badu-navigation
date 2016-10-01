@@ -12,9 +12,7 @@ const category = {
   weights: 100
 };
 describe('Test controllers/category.js', () => {
-  before(done => {
-    helper.clear('categories', done);
-  });
+  before(() => helper.clear('categories'));
   describe('POST /categories', () => {
     it('create category', done => {
       request(app)
@@ -96,7 +94,7 @@ describe('Test controllers/category.js', () => {
     })
   });
 
-  after(done => helper.clear('categories', done))
+  after(() => helper.clear('categories'))
 
 });
 

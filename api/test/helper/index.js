@@ -2,15 +2,21 @@ const helper = {};
 const mongoose = require('mongoose');
 
 helper.clear = (collection, callback) => {
-  mongoose.connection.collections[collection].drop( () => {
-    callback();
-  });
+  return new Promise((resolve, reject)  => {
+    mongoose.connection.collections[collection].drop( () => {
+      callback && callback();
+      resolve();
+    });
+  })
 };
 
 helper.create = (collection, obj, callback) => {
-  mongoose.connection.collections[collection].save(obj, () => {
-    callback();
-  });
+  return new Promise((resolve, reject)  => {
+    mongoose.connection.collections[collection].save(obj, result => {
+      callback && callback(result);
+      resolve(result);
+    });
+  })
 };
 
 module.exports = helper;

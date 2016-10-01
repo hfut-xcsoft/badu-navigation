@@ -21,7 +21,15 @@ CategorySchema.methods = {
     return this.save();
   },
   delete: function () {
-    return Category.remove({_id: this._id})
+    return Category.remove({_id: this._id}).exec();
+  },
+  pushSubcategory: function (subcategory) {
+    return Category.update({_id: this._id},
+      {$push: {subcategories: subcategory._id}}).exec();
+  },
+  removeSubcategory: function (subcategory) {
+    return Category.update({_id: this._id},
+      {$pop: {subcategories: subcategory._id}}).exec()
   }
 };
 
@@ -29,13 +37,13 @@ CategorySchema.statics = {
   getByQuery: function (query, opt, field) {
     opt = opt || {};
     opt.sort = Object.assign({ weights: -1 }, opt && opt.sort);
-    return this.find(query, field, opt).exec();
+    return this.find(query, field, opt).populate('subcategories').exec();
   },
   getById: function (id) {
-    return this.findById(id).exec();
+    return this.findById(id).populate('subcategories').exec();
   },
   getBySlug: function (slug) {
-    return this.findOne({slug}).exec();
+    return this.findOne({slug}).populate('subcategories').exec();
   }
 };
 
