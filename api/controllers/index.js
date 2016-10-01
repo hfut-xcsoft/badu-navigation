@@ -21,6 +21,7 @@ router.use('/websites', websites.routes());
 
 subcategories
   .get('/', subcategoryController.getSubcategories)
+  .post('/', subcategoryController.createSubcategory)
   .param('subcategory', subcategoryController.assert)
   .get('/:subcategory', subcategoryController.getSubcategory)
   .put('/:subcategory', subcategoryController.updateSubcategory)
@@ -33,9 +34,7 @@ categories
   .param('category', categoryController.assert)
   .get('/:category', categoryController.getCategory)
   .put('/:category', categoryController.updateCategory)
-  .delete('/:category', categoryController.removeCategory)
-  .get('/:category/subcategories', subcategoryController.getSubcategories)
-  .post('/:category/subcategories', subcategoryController.createSubcategory);
+  .delete('/:category', categoryController.removeCategory);
 router.use('/categories', categories.routes());
 
 feedbacks

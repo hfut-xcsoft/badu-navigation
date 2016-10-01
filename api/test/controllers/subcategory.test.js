@@ -25,21 +25,35 @@ describe('Test controllers/subcategory.js', () => {
       helper.clear('categories'),
       helper.clear('subcategories')
     ]).then(() => {
-      return Promise.all([
-        helper.create('categories', category1),
-        helper.create('categories', category2)
-      ]);
-    }).then(() => done())
-  });
-  describe('POST /categories/:category/subcategories', () => {
-    it('create subcategory', done => {
       request(app)
-        .post(`/categories/${category1.slug}/subcategories`)
+        .post(`/categories`)
+        .send(category1)
+        .expect(201)
+        .expect(res => {
+          category1._id = res.body._id;
+        })
+        .end(() => {
+          request(app)
+            .post(`/categories`)
+            .send(category2)
+            .expect(201)
+            .expect(res => {
+              category2._id = res.body._id;
+            })
+            .end(done)
+        })
+    })
+  });
+  describe('POST /subcategories', () => {
+    it('create subcategory', done => {
+      subcategory.category = category1._id;
+      request(app)
+        .post(`/subcategories`)
         .send(subcategory)
         .expect(201)
         .expect(res => {
           expect(easycopy(res.body,
-            ['name', 'slug', 'icon_url', 'description', 'weights'], {undefined: false}))
+            ['name', 'slug', 'icon_url', 'description', 'weights', 'category'], {undefined: false}))
             .to.eql(subcategory);
         })
         .end(done);
@@ -75,6 +89,24 @@ describe('Test controllers/subcategory.js', () => {
             '_id', 'name', 'slug', 'icon_url', 'description', 'weights', 'websites', 'category'
           ]);
           subcategory._id = res.body[0]._id;
+        })
+        .end(done);
+    })
+    it('get websites belong to category1', done => {
+      request(app)
+        .get(`/subcategories?category=${category1._id}`)
+        .expect(200)
+        .expect(res => {
+          expect(res.body).to.have.length.of(1);
+        })
+        .end(done);
+    })
+    it('get websites belong to category2', done => {
+      request(app)
+        .get(`/subcategories?category=${category2._id}`)
+        .expect(200)
+        .expect(res => {
+          expect(res.body).to.have.length.of(0);
         })
         .end(done);
     })

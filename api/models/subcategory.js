@@ -38,13 +38,13 @@ SubcategorySchema.statics = {
   getByQuery: function (query, opt, field) {
     opt = opt || {};
     opt.sort = Object.assign({ weights: -1 }, opt && opt.sort);
-    return this.find(query, field, opt).exec();
+    return this.find(query, field, opt).populate('websites').exec();
   },
   getById: function (id) {
-    return this.findById(id).exec();
+    return this.findById(id).populate('websites').exec();
   },
   getBySlug: function (slug) {
-    return this.findOne({slug}).exec();
+    return this.findOne({slug}).populate('websites').exec();
   }
 };
 const Subcategory = mongoose.model('Subcategory', SubcategorySchema);

@@ -16,7 +16,11 @@ websiteController.assert = async (id, ctx, next) => {
 };
 
 websiteController.getWebsites = async ctx => {
-  ctx.body = await Website.getByQuery()
+  const query = {};
+  if (ctx.request.query.subcategory) {
+    query.subcategory = ctx.request.query.subcategory
+  }
+  ctx.body = await Website.getByQuery(query)
 };
 
 websiteController.createWebsites = async ctx => {

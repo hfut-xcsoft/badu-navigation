@@ -34,29 +34,46 @@ describe('Test controllers/website.js', () => {
       helper.clear('categories'),
       helper.clear('subcategories'),
       helper.clear('websites')
-    ]).then(() => Promise.all([
-      helper.create('categories', category1),
-      helper.create('categories', category2)
-    ])).then(() => {
+    ]).then(() => {
       request(app)
-        .post(`/categories/${category1.slug}/subcategories`)
-        .send(subcategory1)
+        .post(`/categories`)
+        .send(category1)
         .expect(201)
         .expect(res => {
-          subcategory1._id = res.body._id;
+          category1._id = res.body._id;
         })
         .end(() => {
           request(app)
-            .post(`/categories/${category2.slug}/subcategories`)
-            .send(subcategory2)
+            .post(`/categories`)
+            .send(category2)
             .expect(201)
             .expect(res => {
-              subcategory2._id = res.body._id;
+              category2._id = res.body._id;
             })
-            .end(done)
-      })
+            .end(() => {
+              subcategory1.category = category1._id;
+              request(app)
+                .post(`/subcategories`)
+                .send(subcategory1)
+                .expect(201)
+                .expect(res => {
+                  subcategory1._id = res.body._id;
+                })
+                .end(() => {
+                  subcategory2.category = category2._id;
+                  request(app)
+                    .post(`/subcategories`)
+                    .send(subcategory2)
+                    .expect(201)
+                    .expect(res => {
+                      subcategory2._id = res.body._id;
+                    })
+                    .end(done)
+                })
+            })
+        })
     })
-  })
+  });
 
   describe('POST /websites', () => {
     it('create a new website', done => {
@@ -85,6 +102,24 @@ describe('Test controllers/website.js', () => {
           expect(res.body[0]).to.have.all.keys([
             '_id', 'name', 'url', 'icon_url', 'description', 'weights', 'subcategory', 'attach_visit'
           ])
+        })
+        .end(done);
+    })
+    it('get websites belong to subcategory1', done => {
+      request(app)
+        .get(`/websites?subcategory=${subcategory1._id}`)
+        .expect(200)
+        .expect(res => {
+          expect(res.body).to.have.length.of(1);
+        })
+        .end(done);
+    })
+    it('get websites belong to subcategory2', done => {
+      request(app)
+        .get(`/websites?subcategory=${subcategory2._id}`)
+        .expect(200)
+        .expect(res => {
+          expect(res.body).to.have.length.of(0);
         })
         .end(done);
     })

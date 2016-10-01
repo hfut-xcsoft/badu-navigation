@@ -18,14 +18,14 @@ subcategoryController.assert = async (id, ctx, next) => {
 };
 
 subcategoryController.createSubcategory = async ctx => {
-  const category = ctx.category;
+  const body = easycopy(ctx.request.body,
+    ['name', 'slug', 'icon_url', 'description', 'weights', 'category']);
+  if (!body.name || !body.slug || !body.category) {
+    throw new HttpError.BadRequestError('缺少必要信息');
+  }
+  const category = await Category.getById(body.category);
   if (!category) {
     throw new HttpError.NotFoundError('一级分类未找到');
-  }
-  const body = easycopy(ctx.request.body,
-    ['name', 'slug', 'icon_url', 'description', 'weights']);
-  if (!body.name || !body.slug) {
-    throw new HttpError.BadRequestError('缺少必要信息');
   }
   body.category = category._id;
   const subcategory = await new Subcategory(body).create();
@@ -35,11 +35,11 @@ subcategoryController.createSubcategory = async ctx => {
 };
 
 subcategoryController.getSubcategories = async ctx => {
-  if (ctx.category) {
-    ctx.body = ctx.category.subcategories;
-  } else {
-    ctx.body = await Subcategory.getByQuery();
+  const query = {};
+  if (ctx.request.query.category) {
+    query.category = ctx.request.query.category;
   }
+  ctx.body = await Subcategory.getByQuery(query);
 };
 
 subcategoryController.getSubcategory = async ctx => {
