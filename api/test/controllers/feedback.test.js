@@ -23,10 +23,6 @@ describe('Test controllers/feedback.js', () => {
         .post('/feedbacks')
         .send(feedback)
         .expect(201)
-        .expect(res => {
-          expect(res.body.content).to.equal(feedback.content);
-          expect(res.body.created_at).to.be.not.null;
-        })
         .end(done);
     })
   });

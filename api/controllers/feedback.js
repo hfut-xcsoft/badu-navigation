@@ -11,7 +11,8 @@ feedbackController.createFeedback = async (ctx, next) => {
   if (!body.content) {
     throw new HttpError.BadRequestError('请填写反馈内容');
   }
-  ctx.body = await new Feedback(body).create();
+  await new Feedback(body).create();
+  ctx.body = true;
   ctx.status = 201;
 };
 
