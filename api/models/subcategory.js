@@ -23,6 +23,14 @@ SubcategorySchema.methods = {
   },
   delete: function () {
     return Subcategory.remove({_id: this._id})
+  },
+  pushWebsite: function (website) {
+    return Subcategory.update({_id: this._id},
+      {$push: {websites: website._id}}).exec();
+  },
+  removeWebsite: function (website) {
+    return Subcategory.update({_id: this._id},
+      {$pop: {websites: website._id}}).exec()
   }
 };
 

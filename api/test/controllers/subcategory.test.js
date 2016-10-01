@@ -141,7 +141,7 @@ describe('Test controllers/subcategory.js', () => {
     })
   });
 
-  describe(`DELETE /subcategories/:subcategory`, () => {
+  describe('DELETE /subcategories/:subcategory', () => {
     it('delete the subcategory', done => {
       request(app)
         .delete(`/subcategories/${subcategory.slug}`)

@@ -28,7 +28,7 @@ subcategoryController.createSubcategory = async ctx => {
     throw new HttpError.BadRequestError('缺少必要信息');
   }
   body.category = category._id;
-  const subcategory = await new Subcategory(body).save();
+  const subcategory = await new Subcategory(body).create();
   await category.pushSubcategory(subcategory);
   ctx.status = 201;
   ctx.body = subcategory;
