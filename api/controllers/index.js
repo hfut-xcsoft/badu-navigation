@@ -1,21 +1,24 @@
-const router = require('koa-router')();
-const categoryControlelr = require('./category');
+const Router = require('koa-router');
+const categoryController = require('./category');
 const feedbackController = require('./feedback');
 
+const router = new Router();
+const categories = new Router();
+const feedbacks = new Router();
 
-router
-  .get('/categories', categoryControlelr.getCategories)
-  .post('/categories', categoryControlelr.createCategory);
+categories
+  .get('/', categoryController.getCategories)
+  .post('/', categoryController.createCategory)
+  .param('category', categoryController.assert)
+  .get('/:category', categoryController.getCategory)
+  .put('/:category', categoryController.updateCategory)
+  .delete('/:category', categoryController.removeCategory);
+router.use('/categories', categories.routes());
 
-router
-  .param('category', categoryControlelr.assert)
-  .get('/categories/:category', categoryControlelr.getCategory)
-  .put('/categories/:category', categoryControlelr.updateCategory)
-  .delete('/categories/:category', categoryControlelr.removeCategory);
+feedbacks
+  .get('/', feedbackController.getAllFeedbacks)
+  .post('/', feedbackController.createFeedback);
+router.use('/feedbacks', feedbacks.routes());
 
-
-
-router.get('/feedbacks', feedbackController.getAllFeedbacks);
-router.post('/feedbacks', feedbackController.createFeedback);
 
 module.exports = router.routes();
