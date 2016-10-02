@@ -1,4 +1,5 @@
 const Router = require('koa-router');
+const multer = require('koa-multer');
 const categoryController = require('./category');
 const subcategoryController = require('./subcategory');
 const websiteController = require('./website');
@@ -6,6 +7,7 @@ const feedbackController = require('./feedback');
 const submitController = require('./submit');
 const statisticController = require('./statistic');
 const aggregateController = require('./aggregate');
+const uploadController = require('./upload');
 
 const router = new Router();
 const categories = new Router();
@@ -58,5 +60,8 @@ statistics
 router.use('/statistics', statistics.routes());
 
 router.get('/', aggregateController.getAggregate);
+router.post('/uploads',
+  multer({ storage: multer.diskStorage(uploadController.storagePicture)}).single('picture'),
+  uploadController.handleResult);
 
 module.exports = router.routes();
