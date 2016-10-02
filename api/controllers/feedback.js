@@ -1,15 +1,16 @@
 const feedbackController = {};
 const HttpError  = require('some-http-error');
 const Feedback = require('../models').Feedback;
+const easycopy = require('easy-copy');
 
 feedbackController.getAllFeedbacks = async (ctx, next) => {
   ctx.body = await Feedback.getFeedbacksByQuery();
 };
 
 feedbackController.createFeedback = async (ctx, next) => {
-  const body = ctx.request.body;
-  if (!body.content) {
-    throw new HttpError.BadRequestError('请填写反馈内容');
+  const body = easycopy(ctx.request.body, ['content', 'email']);
+  if (!body.content || !body.email) {
+    throw new HttpError.BadRequestError('请将内容填写完整');
   }
   await new Feedback(body).create();
   ctx.body = true;

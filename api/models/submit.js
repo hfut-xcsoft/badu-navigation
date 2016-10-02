@@ -8,7 +8,6 @@ const SubmitSchema = new Schema({
   url: String,
   description: String,
   category: String,
-  subcategory: String,
   email: String,
   status: Number,
   __v: { type: Number,  select: false }

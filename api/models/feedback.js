@@ -4,7 +4,8 @@ const ObjectId = Schema.Types.ObjectId;
 
 const FeedbackSchema = new Schema({
   created_at: { type: Date, default: Date.now },
-  content: String
+  content: String,
+  email: String
 });
 
 FeedbackSchema.methods = {
