@@ -6,7 +6,7 @@ const submitController = {};
 
 submitController.createSubmit = async ctx => {
   const body = easycopy(ctx.request.body,
-    ['name', 'url', 'description', 'category', 'subcategory', 'email']);
+    ['name', 'url', 'description', 'category', 'email']);
   Object.keys(body).forEach(key => {
     if (!body[key]) {
       throw new HttpError.BadRequestError('请将信息填写完整');

@@ -10,7 +10,6 @@ describe('Test controllers/submit.js', () => {
     url: "http://example.com",
     description: "这个网站好棒",
     category: "其它",
-    subcategory: "其它",
     email: "example@example.com"
   };
   describe('POST /submits', () => {
@@ -37,7 +36,7 @@ describe('Test controllers/submit.js', () => {
         .expect(res => {
           expect(res.body).to.have.length.of(1);
           expect(res.body[0]).to.have.all.keys([
-            '_id', 'name', 'url', 'description', 'category', 'subcategory', 'email'
+            '_id', 'name', 'url', 'description', 'category', 'email'
           ]);
           submit._id = res.body[0]._id;
         })

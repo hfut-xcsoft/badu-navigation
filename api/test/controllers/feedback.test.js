@@ -8,7 +8,8 @@ describe('Test controllers/feedback.js', () => {
     helper.clear('feedbacks', done);
   });
   const feedback = {
-    content: 'Test'
+    content: 'Test',
+    email: "example@example.com"
   };
   describe('POST /feedbacks createFeedback()', () => {
     it('get error if there is no content in request', done => {
@@ -34,6 +35,7 @@ describe('Test controllers/feedback.js', () => {
         .expect(res => {
           expect(res.body).to.have.length.of(1);
           expect(res.body[0].content).to.equal(feedback.content);
+          expect(res.body[0].email).to.equal(feedback.email);
         })
         .end(done);
     })
