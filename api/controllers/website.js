@@ -2,11 +2,12 @@ const HttpError  = require('some-http-error');
 const Subcategory = require('../models').Subcategory;
 const Website = require('../models').Website;
 const easycopy = require('easy-copy');
+const utils = require('../commons/utils');
 
 const websiteController = {};
 
 websiteController.assert = async (id, ctx, next) => {
-  if (/[a-f0-9]{24}/.test(id)) {
+  if (utils.isValidObjectId(id)) {
     ctx.website = await Website.getById(id);
   }
   if (!ctx.website) {
