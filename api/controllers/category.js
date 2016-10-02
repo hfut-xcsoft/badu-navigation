@@ -1,11 +1,12 @@
 const HttpError  = require('some-http-error');
 const Category = require('../models').Category;
 const easycopy = require('easy-copy');
+const utils = require('../commons/utils');
 
 const categoryController = {};
 
 categoryController.assert = async (id, ctx, next) => {
-  if (/[a-f0-9]{24}/.test(id)) {
+  if (utils.isValidObjectId(id)) {
     ctx.category = await Category.getById(id);
   } else {
     ctx.category = await Category.getBySlug(id);

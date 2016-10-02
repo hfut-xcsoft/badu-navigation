@@ -3,6 +3,7 @@ const Website = require('../models').Website;
 const Statistic = require('../models').Statistic;
 const easycopy = require('easy-copy');
 const mongoose = require('mongoose');
+const utils = require('../commons/utils');
 
 const statisticController = {};
 
@@ -10,7 +11,7 @@ statisticController.addStatistic = async ctx => {
   switch (ctx.request.query.type) {
     case 'click':
       const websiteId = ctx.request.query.id;
-      if (!/[a-f0-9]{24}/.test(websiteId)) {
+      if (!utils.isValidObjectId(websiteId)) {
         throw new HttpError.BadRequestError()
       }
       await Statistic.addClickCount(websiteId);

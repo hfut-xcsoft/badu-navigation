@@ -1,6 +1,7 @@
 const HttpError  = require('some-http-error');
 const Submit = require('../models').Submit;
 const easycopy = require('easy-copy');
+const utils = require('../commons/utils');
 
 const submitController = {};
 
@@ -12,6 +13,13 @@ submitController.createSubmit = async ctx => {
       throw new HttpError.BadRequestError('请将信息填写完整');
     }
   });
+  if (!utils.isValidUrl(body.url)) {
+    throw new HttpError.BadRequestError('网站 URL 地址格式不正确');
+  }
+  if (!utils.isValidEmail(body.email)) {
+    throw new HttpError.BadRequestError('邮箱格式不正确');
+  }
+  body.url = utils.toNormalUrl(body.url);
   await new Submit(body).create();
   ctx.body = true;
   ctx.status = 201;
@@ -23,7 +31,7 @@ submitController.getAllSubmits = async ctx => {
 
 submitController.updateSubmitStatus = async ctx => {
   const submitId = ctx.params.submit;
-  if (!/[0-9a-f]{24}/.test(submitId)) {
+  if (!utils.isValidObjectId(submitId)) {
     throw new HttpError.BadRequestError('请输入合法 ID');
   }
   const status = ctx.request.body.status;
