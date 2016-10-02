@@ -1,0 +1,115 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title 八度导航
+    link(href='assets/style.css', rel='stylesheet', type='text/css')
+  body
+    #background
+      #gloss
+    #container
+      #search-area
+        img#logo(src='assets/img/badu-nav-logo.png')
+        #search
+          input#search-input(autocomplete="off")
+          button#search-button(type='button') 搜 索
+          ul#engines
+            li
+              label
+                input(type='radio', name='engine', value='google')
+                |  Google(镜像)
+            li
+              label
+                input(type='radio', name='engine', value='bing')
+                |  必应
+            li
+              label
+                input(type='radio', name='engine', value='sogou')
+                |  搜狗
+            li
+              label
+                input(type='radio', name='engine', value='baidu')
+                |  百度
+            li
+              label
+                input(type='radio', name='engine', value='wikipedia')
+                |  WikiPedia(镜像)
+      #navigation-area
+        each category in categories
+          .nav-panel
+            .nav-left
+              .first-class #{category.name}
+              .link-info(id='link-info-' + category.slug)
+                .icon: img(src=category.icon_url || 'assets/img/hfut-logo.jpg')
+                .description #{category.description}
+            .nav-right
+              ul.second-classes(data-active=category.slug + '-hot')
+                each subcategory in category.subcategories
+                  li(data-target=category.slug + '-' + subcategory.slug, class=subcategory.slug === 'hot' && 'active' data-category=category.slug data-icon-url=subcategory.icon_url data-description = subcategory.description) #{subcategory.name}
+              .link-page
+                each subcategory in category.subcategories
+                  .links(id=category.slug + '-' + subcategory.slug, class=subcategory.slug === 'hot' && 'active')
+                    each website in subcategory.websites
+                      a(href=website.url, data-description=website.description, data-icon-url=website.icon_url data-category=category.slug target="_blank" data-id=website._id) #{website.name}
+    #footer
+      .text
+        | 如果你有什么想推荐的网站, 点击
+        a(href='javascript:' onclick='popup("submit")') 这里
+        | 来推荐吧
+      .text
+        | 如果你觉得本站还有那些地方做的不好, 点击
+        a(href='javascript:' onclick='popup("feedback")') 这里
+        | 来反馈吧
+
+    #recommend.popup
+      .title 网址推荐
+      form#recommend-form.body
+        .line
+          span 网站名称
+          input(name='name', autocomplete="off")
+        .line
+          span 网站首页网址
+          input(name='url', autocomplete="off")
+        .line
+          span 分类名称
+          input(name='category', autocomplete="off")
+        .line
+          span 推荐语
+          textarea(name='name', placeholder='一句话体现出网站的特色, 吸引其它用户点击')
+        .line
+          span  推荐人 Email
+          input(name='email')
+        button(type='submit') 提交
+        button(type='button', onclick="closepop()") 取消
+
+    #feedback.popup
+      .title 意见反馈
+      form#feedback-form.body
+        .line
+          span Email
+          input(name='email')
+        .line
+          span 反馈内容
+          textarea(name='content', placeholder='对本站有什么不满的, 大声说出来吧')
+        button(type='submit') 提交
+        button(type='button', onclick="closepop()") 取消
+
+
+    #ctrl-panel
+      .ctrl-row
+        a#c-dc9fb4.bg-color(href='javascript:void(0);', data-color='#dc9fb4')
+        a#c-9e7a7a.bg-color(href='javascript:void(0);', data-color='#9e7a7a')
+        a#c-d7c4bb.bg-color(href='javascript:void(0);', data-color='#d7c4bb')
+      .ctrl-row
+        a#c-d7b98e.bg-color(href='javascript:void(0);', data-color='#d7b98e')
+        a#c-91b493.bg-color(href='javascript:void(0);', data-color='#91b493')
+        a#c-86a697.bg-color(href='javascript:void(0);', data-color='#86a697')
+      .ctrl-row
+        a#c-72636e.bg-color(href='javascript:void(0);', data-color='#72636e')
+        a#c-546e7a.bg-color(href='javascript:void(0);', data-color='#546e7a')
+        a#c-b9887d.bg-color(href='javascript:void(0);', data-color='#b9887d')
+    script(src='assets/jquery-1.11.3.min.js')
+    script(src='assets/jquery.color.min.js')
+    script(src='assets/jquery-cookie.min.js')
+    script(src='assets/modernizr-custom.js')
+    script(src='assets/script.js')
