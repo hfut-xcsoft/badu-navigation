@@ -17,33 +17,40 @@ function getTodayDate() {
 StatisticSchema.statics = {
   addClickCount: function (websiteId) {
     const todayDate = getTodayDate();
-    return Statistic.find({date: todayDate, 'websites.website': websiteId})
+    return Statistic.find({ date: todayDate, 'websites.website': websiteId })
       .count().exec().then(count => {
         console.log(count);
         if (!count) {
           return Statistic.update(
-            {date: todayDate},
-            {$push: {
+            { date: todayDate },
+            { $push: {
               websites: {
                 website: websiteId,
                 count: 1
               }
             }},
-            //{date: new Date("Sat, 01 Oct 2016 00:00:00 GMT") },
-            //{$push: {
-            //  websites: {
-            //    website: "57efa76184ce6d22fe5b4454",
-            //    count: 1
-            //  }
-            //}},
-            {upsert: true, new: true}).exec()
+            { upsert: true, new: true }).exec()
         } else {
           return Statistic.update(
-            {date: todayDate, 'websites.website': websiteId},
-            {$inc: {'websites.$.count': 1}},
-            {upsert: 1}).exec();
+            { date: todayDate, 'websites.website': websiteId },
+            { $inc: { 'websites.$.count': 1 }},
+            { upsert: 1 }).exec();
         }
     });
+  },
+  getHotWebsitesInCategory: function (categorySet, day) {
+    return this.aggregate([
+      { $match: { date : { $gte: new Date(getTodayDate() - 86400e3 * (day - 1)) }}},
+      { $unwind: "$websites" },
+      { $match: { "websites.website": { $in: categorySet }}},
+      { $project: { _id: "$websites.website", count: "$websites.count" }},
+      { $group: { _id: "$_id", count: { $sum: "$count" }}},
+      { $sort: { count: -1 }},
+      { $limit: 20 },
+      { $lookup: { localField: "_id", from: "websites", foreignField: "_id", as: "website" }},
+      { $unwind: "$website" },
+      { $project: { _id: "$website._id", name: "$website.name", url: "$website.url", description: "$website.description" }}
+    ]).exec();
   }
 }
 

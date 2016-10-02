@@ -8,7 +8,6 @@ const WebsiteSchema = new Schema({
   icon_url: String,
   description: String,
   weights: { type: Number, default: 0 },
-  attach_visit: { type: Number, default: 0 },
   subcategory: ObjectId,
   recommend_by: String,
   __v: { type: Number,  select: false }

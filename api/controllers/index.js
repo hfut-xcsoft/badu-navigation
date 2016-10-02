@@ -5,6 +5,7 @@ const websiteController = require('./website');
 const feedbackController = require('./feedback');
 const submitController = require('./submit');
 const statisticController = require('./statistic');
+const aggregateController = require('./aggregate');
 
 const router = new Router();
 const categories = new Router();
@@ -56,6 +57,6 @@ statistics
   .post('/', statisticController.addStatistic);
 router.use('/statistics', statistics.routes());
 
-
+router.get('/', aggregateController.getAggregate);
 
 module.exports = router.routes();
