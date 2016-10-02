@@ -76,7 +76,5 @@ describe('Test controllers/submit.js', () => {
         .end(done);
     })
   })
-  after(done => {
-    helper.clear('feedbacks', done);
-  })
+  after(() => helper.clear('submits'))
 })

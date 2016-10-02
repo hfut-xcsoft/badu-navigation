@@ -44,6 +44,20 @@ CategorySchema.statics = {
   },
   getBySlug: function (slug) {
     return this.findOne({slug}).populate('subcategories').exec();
+  },
+  getGroupedWebsites: function () {
+    return this.find({}, {_id: 0})
+      .populate({
+        path: 'subcategories',
+        options: { sort: { weights: -1 } },
+        select: { _id: 0, name: 1, slug: 1, icon_url: 1, description: 1, websites: 1 },
+        populate: {
+          path: 'websites',
+          options: { sort: { weights: -1 } },
+          select: { _id: 1, name: 1, url: 1, icon_url: 1, description: 1 }
+        }
+      })
+      .lean().exec();
   }
 };
 
