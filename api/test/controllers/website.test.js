@@ -100,7 +100,7 @@ describe('Test controllers/website.js', () => {
         .expect(res => {
           expect(res.body).to.have.length.of(1);
           expect(res.body[0]).to.have.all.keys([
-            '_id', 'name', 'url', 'icon_url', 'description', 'weights', 'subcategory', 'attach_visit'
+            '_id', 'name', 'url', 'icon_url', 'description', 'weights', 'subcategory'
           ])
         })
         .end(done);

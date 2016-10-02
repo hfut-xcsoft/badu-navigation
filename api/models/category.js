@@ -7,7 +7,7 @@ const CategorySchema = new Schema({
   slug: String,
   icon_url: String,
   description: String,
-  weights: Number,
+  weights: { type: Number, default: 0 },
   subcategories: [{ type: ObjectId, ref: 'Subcategory' }],
   __v: { type: Number,  select: false }
 });
