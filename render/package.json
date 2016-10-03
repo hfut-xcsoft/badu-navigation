@@ -1,0 +1,16 @@
+{
+  "name": "badu-nav-render",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dremy",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.14.0",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.75.0"
+  }
+}

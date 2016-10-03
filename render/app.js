@@ -3,8 +3,7 @@ const request = require('request');
 const path = require('path');
 const app = Express();
 
-
-app.set('views', './views');
+app.set('views', './templates');
 app.set('view engine', 'pug');
 app.locals.pretty = true;
 app.use('/assets', Express.static(path.join(__dirname, 'assets')));
@@ -14,11 +13,19 @@ app.get('/', (req, res, next) => {
     if (err) {
       return res.send(err);
     }
-    res.render('index.pug', {
+    var templ;
+    switch (req.query.version) {
+      case 'common':
+      default:
+        templ = 'templ-1.pug';
+        break;
+    }
+    res.render(templ, {
       categories: JSON.parse(body)
     })
   })
 });
+
 
 app.listen(3000);
 console.log('APP started on  port 3000');
