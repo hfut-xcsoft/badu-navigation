@@ -49,7 +49,7 @@ StatisticSchema.statics = {
       { $limit: 20 },
       { $lookup: { localField: "_id", from: "websites", foreignField: "_id", as: "website" }},
       { $unwind: "$website" },
-      { $project: { _id: "$website._id", name: "$website.name", url: "$website.url", description: "$website.description" }}
+      { $project: { _id: "$website._id", name: "$website.name", url: "$website.url", icon_url: "$website.icon_url", description: "$website.description" }}
     ]).exec();
   }
 }
