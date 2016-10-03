@@ -1,9 +1,11 @@
+- var version = 1.0
 doctype html
 html
   head
     meta(charset='utf-8')
     title 八度导航
-    link(href='assets/templ-1/style.css', rel='stylesheet', type='text/css')
+    link(href='assets/templ-1/style.css?v=' + version, rel='stylesheet', type='text/css')
+    link(href='assets/templ-1/sprite.css?v=' + version, rel='stylesheet', type='text/css')
   body
     #background
       #gloss
@@ -97,19 +99,19 @@ html
 
     #ctrl-panel
       .ctrl-row
-        a#c-dc9fb4.bg-color(href='javascript:void(0);', data-color='#dc9fb4')
-        a#c-9e7a7a.bg-color(href='javascript:void(0);', data-color='#9e7a7a')
-        a#c-d7c4bb.bg-color(href='javascript:void(0);', data-color='#d7c4bb')
+        a.sp-dc9fb4.bg-color(href='javascript:void(0);', data-color='#dc9fb4')
+        a.sp-9e7a7a.bg-color(href='javascript:void(0);', data-color='#9e7a7a')
+        a.sp-d7c4bb.bg-color(href='javascript:void(0);', data-color='#d7c4bb')
       .ctrl-row
-        a#c-d7b98e.bg-color(href='javascript:void(0);', data-color='#d7b98e')
-        a#c-91b493.bg-color(href='javascript:void(0);', data-color='#91b493')
-        a#c-86a697.bg-color(href='javascript:void(0);', data-color='#86a697')
+        a.sp-d7b98e.bg-color(href='javascript:void(0);', data-color='#d7b98e')
+        a.sp-91b493.bg-color(href='javascript:void(0);', data-color='#91b493')
+        a.sp-86a697.bg-color(href='javascript:void(0);', data-color='#86a697')
       .ctrl-row
-        a#c-72636e.bg-color(href='javascript:void(0);', data-color='#72636e')
-        a#c-546e7a.bg-color(href='javascript:void(0);', data-color='#546e7a')
-        a#c-b9887d.bg-color(href='javascript:void(0);', data-color='#b9887d')
+        a.sp-72636e.bg-color(href='javascript:void(0);', data-color='#72636e')
+        a.sp-546e7a.bg-color(href='javascript:void(0);', data-color='#546e7a')
+        a.sp-b9887d.bg-color(href='javascript:void(0);', data-color='#b9887d')
     script(src='assets/common/jquery-1.11.3.min.js')
     script(src='assets/common/jquery.color.min.js')
     script(src='assets/common/jquery-cookie.min.js')
     script(src='assets/common/modernizr-custom.js')
-    script(src='assets/templ-1/script.js')
+    script(src='assets/templ-1/script.js?v=' + version)
