@@ -1,0 +1,25 @@
+{
+  "name": "badu-nav-render",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dremy",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.14.0",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.75.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-rev": "^7.1.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp.spritesmith": "^6.2.1",
+    "merge-stream": "^1.0.0"
+  }
+}

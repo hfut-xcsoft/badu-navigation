@@ -4,11 +4,12 @@ $(function () {
   $('.second-classes').mouseover(menuDelegate);
   $('.link-page').mouseover(linkHoverDelegate);
   $('.link-page').click(linkClickDelegate);
+  $('#ctrl-panel').hover(colorOpen, colorClose);
   $('#ctrl-panel').click(colorDelegate);
   $('#search-input').on('keypress', searchInputHandle);
   $('#search-button').click(search);
-  $('#recommend-form').submit(handleRecommend);
-  $('#feedback-form').submit(handleFeedback);
+  $('#recommend-form').submit(handleForm('api/submits'));
+  $('#feedback-form').submit(handleForm('api/feedbacks'));
 });
 
 function menuDelegate(e) {
@@ -46,7 +47,7 @@ function linkClickDelegate(e) {
   if (!$target.is('a')) {
     return;
   }
-  $.post('api/statistics?type=click&id=' + $target.data('id')).error(console.log);
+  $.post('api/statistics?type=click&id=' + $target.data('id')).error(function () {});
 }
 
 function setBgColor(color) {
@@ -54,9 +55,28 @@ function setBgColor(color) {
   if (Modernizr.csstransitions) {
     $('#background').css('background-color', color);
   } else {
-    $('#background').animate(
+    $('#background').clearQueue().animate(
       { backgroundColor: color }, {
         duration: 3000,
+        easing: 'swing'
+      })
+  }
+}
+
+function colorOpen(e) {
+  if (!Modernizr.csstransitions) {
+    $('.bg-color').clearQueue().animate(
+      { marginLeft: '18px', marginBottom: '18px' }, {
+        duration: 500,
+        easing: 'swing'
+      })
+  }
+}
+function colorClose(e) {
+  if (!Modernizr.csstransitions) {
+    $('.bg-color').clearQueue().animate(
+      { marginLeft: '-18px', marginBottom: '-18px' }, {
+        duration: 500,
         easing: 'swing'
       })
   }
@@ -69,7 +89,7 @@ function colorDelegate(e) {
   }
   var color = $target.data('color')
   setBgColor(color);
-  $.cookie('bgcolor', color, { expires: 7, path: '/' });
+  saveBgColor(color);
 }
 
 function searchInputHandle(e) {
@@ -142,78 +162,56 @@ function arrayToObject(array) {
   return obj;
 }
 
-function handleRecommend(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  var form = $(this);
-  var array = form.serializeArray();
-  var obj = arrayToObject(array);
-  if (!obj) {
-    alert('请填写完整');
-    return false;
-  }
-  $.ajax({
-    type: 'POST',
-    url: 'api/submits',
-    contentType: 'application/json',
-    data: JSON.stringify(obj)
-  }).success(function() {
-    alert('提交成功')
-    form.trigger("reset");
-  }).error(function (xhr) {
-    if (xhr.status < 500) {
-      alert('提交失败: ' + xhr.responseJSON && xhr.responseJSON.message);
-    } else {
-      alert('提交失败, 网络错误, 请稍后再试');
-    }
-  });
-  return false;
-}
 
-function handleFeedback(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  var form = $(this);
-  var array = form.serializeArray();
-  var obj = arrayToObject(array);
-  if (!obj) {
-    alert('请填写完整');
+function handleForm(url) {
+  return function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var form = $(this);
+    var array = form.serializeArray();
+    var obj = arrayToObject(array);
+    if (!obj) {
+      alert('请将表单填写完整');
+      return false;
+    }
+    $.ajax({
+      type: 'POST',
+      url: url,
+      contentType: 'application/json',
+      data: JSON.stringify(obj)
+    }).success(function() {
+      alert('提交成功');
+      form.trigger("reset");
+    }).error(function (xhr) {
+      if (xhr.status < 500) {
+        alert('提交失败: ' + xhr.responseJSON && xhr.responseJSON.message);
+      } else {
+        alert('提交失败, 网络错误, 请稍后再试');
+      }
+    });
     return false;
   }
-  $.ajax({
-    type: 'POST',
-    url: 'api/feedbacks',
-    contentType: 'application/json',
-    data: JSON.stringify(obj)
-  }).success(function() {
-    alert('提交成功');
-    form.trigger("reset");
-  }).error(function (xhr) {
-    if (xhr.status < 500) {
-      alert('提交失败: ' + xhr.responseJSON && xhr.responseJSON.message);
-    } else {
-      alert('提交失败, 网络错误, 请稍后再试');
-    }
-  });
-  return false;
 }
 
 function init() {
   var engine = $.cookie('engine');
   if (!engine) {
     engine = 'google';
-    $.cookie('engine', engine, { expires: 7, path: '/' });
+    saveEngine(engine)
   }
   $('input[name="engine"][value="' + engine + '"]').prop('checked',true);
 
   var bgColor = $.cookie('bgcolor');
   if (!bgColor) {
     bgColor = '#b9887d';
-    $.cookie('bgcolor', bgColor, { expires: 7, path: '/' });
+    saveBgColor(bgColor);
   }
   setBgColor(bgColor);
 }
-function saveEngine() {
-  var engine = $(this).attr('value');
-  $.cookie('engine', engine, { expires: 7, path: '/' });
+function saveEngine(engine) {
+  engine = $(this).attr('value') || engine;
+  $.cookie('engine', engine, { expires: 365, path: '/' });
+}
+function saveBgColor(color) {
+  $.cookie('bgcolor', color, { expires: 365, path: '/' });
 }
