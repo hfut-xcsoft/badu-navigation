@@ -140,10 +140,11 @@ a {
 .description {
     padding: 10px;
     font-size: 12px;
-
     line-height: 1.7;
     height: 60px;
     overflow: hidden;
+    text-align: center;
+
 }
 
 .nav-right {
@@ -161,7 +162,7 @@ a {
     border-bottom: 1px solid #ccc;
 }
 .second-classes li {
-    margin-right: 10px;
+    margin-right: 2px;
     line-height: 43px;
     text-align: center;
     padding: 0 30px;
@@ -178,15 +179,11 @@ a {
 }
 .link-page {
     position: relative;
+    left: 1px;
 }
 .links {
     display: none;
     position: absolute;
-    -webkit-transition: opacity 1s cubic-bezier(.22, .61, .36, 1);
-    -moz-transition: opacity 1s cubic-bezier(.22, .61, .36, 1);
-    -ms-transition: opacity 1s cubic-bezier(.22, .61, .36, 1);
-    -o-transition: opacity 1s cubic-bezier(.22, .61, .36, 1);
-    transition: opacity 1s cubic-bezier(.22, .61, .36, 1);
 }
 .links.active {
     display: block;
@@ -213,6 +210,7 @@ a {
     position: absolute;
     right: 10px;
     top: 10px;
+    padding: 10px;
 }
 
 .ctrl-row {
@@ -224,6 +222,17 @@ a {
     height: 18px;
     width: 18px;
     float: left;
+    -webkit-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
+    -moz-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
+    -ms-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
+    -o-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
+    transition: margin 1s cubic-bezier(.22, .61, .36, 1);
+}
+.csstransitions .bg-color {
+    margin: -9px;
+}
+.csstransitions #ctrl-panel:hover .bg-color {
+    margin: 10px;
 }
 
 #c-dc9fb4 {background-image: url(img/dc9fb4.png)}
