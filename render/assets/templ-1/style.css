@@ -208,8 +208,8 @@ a {
 
 #ctrl-panel {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 0px;
+    top: 0px;
     padding: 10px;
 }
 
@@ -218,21 +218,22 @@ a {
 }
 .bg-color {
     display: block;
-    margin: 10px;
+    /*margin-left: 8px;*/
+    /*margin-bottom: 6px;*/
+    margin-left: -18px;
+    margin-bottom: -18px;
     height: 18px;
     width: 18px;
     float: left;
-    -webkit-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
+    -webkit-transition: margin 0.5s cubic-bezier(.22, .61, .36, 1);
     -moz-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
     -ms-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
     -o-transition: margin 1s cubic-bezier(.22, .61, .36, 1);
-    transition: margin 1s cubic-bezier(.22, .61, .36, 1);
-}
-.csstransitions .bg-color {
-    margin: -9px;
+    transition: margin 0.5s cubic-bezier(.22, .61, .36, 1);
 }
 .csstransitions #ctrl-panel:hover .bg-color {
-    margin: 10px;
+    margin-left: 18px;
+    margin-bottom: 18px;
 }
 
 #c-dc9fb4 {background-image: url(dc9fb4.png)}

@@ -38,7 +38,7 @@ html
         each category in categories
           .nav-panel
             .nav-left
-              .first-class #{category.name}
+              .first-class #{category.name.split('').join(' ')}
               .link-info(id='link-info-' + category.slug)
                 .icon: img(src=category.icon_url || 'assets/img/hfut-logo.jpg')
                 .description #{category.description}
