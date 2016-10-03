@@ -11,7 +11,7 @@ app.use('/assets', Express.static(path.join(__dirname, 'assets')));
 app.get('/', (req, res, next) => {
   request('http://localhost:4000', (err, response, body) => {
     if (err) {
-      return res.send(err);
+      return res.status(503).send(err);
     }
     var templ;
     switch (req.query.version) {
