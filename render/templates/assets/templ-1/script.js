@@ -36,7 +36,7 @@ function linkHoverDelegate(e) {
 function setIconAndDescription(category, icon, description) {
   var infoElem = $('#link-info-' + category);
   if (icon) {
-    infoElem.children('.icon').first().attr('src', icon)
+    infoElem.find('.icon img').first().attr('src', icon)
   }
   infoElem.children('.description').first().text(description);
 
