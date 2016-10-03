@@ -3,6 +3,7 @@ $(function () {
   $('#engines input').click(saveEngine);
   $('.second-classes').mouseover(menuDelegate);
   $('.link-page').mouseover(linkHoverDelegate);
+  $('.link-page').mouseleave(linkOutDelegate);
   $('.link-page').click(linkClickDelegate);
   $('#ctrl-panel').hover(colorOpen, colorClose);
   $('#ctrl-panel').click(colorDelegate);
@@ -32,11 +33,15 @@ function linkHoverDelegate(e) {
   }
   setIconAndDescription($target.data('category'), $target.data('icon-url'), $target.data('description'))
 }
+function linkOutDelegate(e) {
+  var elem = $(this).prev().children('.active').first();
+  setIconAndDescription(elem.data('category'), elem.data('icon-url'), elem.data('description'))
+}
 
 function setIconAndDescription(category, icon, description) {
   var infoElem = $('#link-info-' + category);
   if (icon) {
-    infoElem.children('.icon').first().attr('src', icon)
+    infoElem.find('.icon img').first().attr('src', icon)
   }
   infoElem.children('.description').first().text(description);
 
