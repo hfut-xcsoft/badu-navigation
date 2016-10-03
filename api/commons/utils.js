@@ -11,7 +11,7 @@ utils.isValidEmail = (email) =>
   /^\w[-\w\.]*@\w[-\w\.]*\.[a-zA-Z]+$/.test(email);
 
 utils.isValidUrl = (url) =>
-  /^(?:https?:\/\/)?\w[-\w\.]*\.[a-zA-Z]+$/.test(url);
+  /^(?:https?:\/\/)?\w[-\w\.]*\.[a-zA-Z]+\/?/.test(url);
 
 utils.toNormalUrl = (url) => {
   if (!/^https?:\/\//.test(url)) {
