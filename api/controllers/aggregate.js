@@ -19,6 +19,7 @@ aggregateController.getAggregate = async ctx => {
     const hot = {
       name: '热门',
       slug: 'hot',
+      icon_url: category.icon_url,
       description: category.description,
       websites: hotWebsites[index]
     };

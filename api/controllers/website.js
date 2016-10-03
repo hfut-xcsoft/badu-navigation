@@ -30,6 +30,10 @@ websiteController.createWebsites = async ctx => {
   if (!body.name || !body.url) {
     throw new HttpError.BadRequestError('缺少必要信息')
   }
+  if (!utils.isValidUrl(body.url)) {
+    throw new HttpError.BadRequestError('网站 URL 地址格式不正确');
+  }
+  body.url = utils.toNormalUrl(body.url);
   const website = await new Website(body).create();
   if (body.subcategory) {
     const subcategory = await Subcategory.getById(body.subcategory);
@@ -48,6 +52,12 @@ websiteController.updateWebsite = async ctx => {
   const body = easycopy(ctx.request.body,
     ['name', 'url', 'icon_url', 'description', 'weights', 'recommend_by', 'subcategory'],
     { undefined: false });
+  if (body.url) {
+    if (!utils.isValidUrl(body.url)) {
+      throw new HttpError.BadRequestError('网站 URL 地址格式不正确');
+    }
+    body.url = utils.toNormalUrl(body.url);
+  }
   let website = ctx.website;
   if (body.subcategory && body.subcategory != website.subcategory) {
     const result = await Promise.all([
