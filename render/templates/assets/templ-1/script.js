@@ -35,7 +35,7 @@ function linkHoverDelegate(e) {
   setIconAndDescription($target.data('category'), $target.data('icon-url'), $target.data('description'))
 }
 function linkOutDelegate(e) {
-  var elem = $(this).prev().children('.active').first();
+  var elem = $(this).parent().find('ul .active').first();
   setIconAndDescription(elem.data('category'), elem.data('icon-url'), elem.data('description'))
 }
 
