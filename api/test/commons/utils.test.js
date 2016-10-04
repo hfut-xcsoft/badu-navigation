@@ -37,12 +37,18 @@ describe('common/utils.js', () => {
       expect(utils.isValidUrl('https://test123.com/')).to.be.true;
       expect(utils.isValidUrl('https://test123.com/index.html')).to.be.true;
       expect(utils.isValidUrl('https://test123.com/path/index.html')).to.be.true;
+      expect(utils.isValidUrl('1.2.3.4')).to.be.true;
+      expect(utils.isValidUrl('https://1.2.3.4')).to.be.true;
+      expect(utils.isValidUrl('https://1.2.3.4/test')).to.be.true;
     });
     it('should be false', () => {
       expect(utils.isValidUrl('123')).to.be.false;
       expect(utils.isValidUrl('test.123')).to.be.false;
       expect(utils.isValidUrl('http:test123.com')).to.be.false;
       expect(utils.isValidUrl('http://test123/')).to.be.false;
+      expect(utils.isValidUrl('1.2.3')).to.be.false;
+      expect(utils.isValidUrl('https://1.2.3')).to.be.false;
+      expect(utils.isValidUrl('https://1.2.3/test')).to.be.false;
     });
   });
 
