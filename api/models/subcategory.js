@@ -30,7 +30,7 @@ SubcategorySchema.methods = {
   },
   removeWebsite: function (website) {
     return Subcategory.update({_id: this._id},
-      {$pop: {websites: website._id}}).exec()
+      {$pull: {websites: website._id}}).exec()
   }
 };
 
