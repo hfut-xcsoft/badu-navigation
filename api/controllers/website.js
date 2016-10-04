@@ -80,7 +80,7 @@ websiteController.removeWebsite = async ctx => {
   const subcategory = await Subcategory.getById(website.subcategory);
   await Promise.all([
     website.delete(),
-    subcategory && subcategory.removeWebsite(subcategory)
+    subcategory && subcategory.removeWebsite(website)
   ]);
   ctx.status = 204;
   ctx.body = null;
