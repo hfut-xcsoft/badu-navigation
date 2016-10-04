@@ -94,7 +94,8 @@ a {
 }
 
 .nav-panel {
-    margin: 50px 0;
+    margin-top: 50px;
+    margin-bottom: 20px;
     background-color: #fff;
     height: 224px;
     border-bottom: 1px solid #ccc;
@@ -151,6 +152,7 @@ a {
 .nav-right {
     float: left;
     width: 810px;
+    position: relative;
 }
 
 .second-classes {
@@ -177,6 +179,17 @@ a {
 .second-classes li.active {
     border-bottom: 1px solid #AF2930;
     color: #AF2930;
+}
+a.share {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    line-height: 43px;
+    padding: 0 20px;
+    color: #AF2930;
+}
+a.share:hover{
+    background-color: #eee
 }
 .link-page {
     position: relative;
@@ -264,7 +277,7 @@ a {
     top: 80px;
     left: 0;
     right: 0;
-    width: 400px;
+    width: 320px;
     background-color: #eee;
     padding: 20px;;
     box-shadow: #999 0 1px 20px;
@@ -274,12 +287,11 @@ a {
 
 .popup .body {
     padding: 4px;
+    width: 308px;
 }
 
 .popup .title {
-
     font-size: 18px;
-    border-bottom: 1px #000 solid;
     color: #AF2930;
 }
 
@@ -293,26 +305,33 @@ a {
 }
 
 .line input {
-    width: 300px;
+    width: 298px;
     font-size: 14px;
     border: 1px #bbb solid;
     padding: 5px;
 }
 
 .line textarea {
-    width: 300px;
+    width: 298px;
     height: 60px;
     font-size: 14px;
     border: 1px #bbb solid;
     padding: 5px;
 }
 
-.popup button {
-    background: #AF2930;
+.btn {
     color: #fff;
     border: none;
-    padding: 4px 20px;
+    padding: 8px 30px;
     font-size: 14px;
     cursor: pointer;
+}
+.btn.btn-submit {
+    background: #AF2930;
+}
+
+.btn.btn-cancel {
+    float: right;
+    background-color: #999;
 }
 

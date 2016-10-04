@@ -2,6 +2,7 @@ $(function () {
   init();
   $('#engines input').click(saveEngine);
   $('.second-classes').mouseover(menuDelegate);
+  $('.share').click(handleShare);
   $('.link-page').mouseover(linkHoverDelegate);
   $('.link-page').mouseleave(linkOutDelegate);
   $('.link-page').click(linkClickDelegate);
@@ -138,6 +139,13 @@ function search() {
   window.open(url, '_blank');
 }
 
+function handleShare() {
+  var share = $(this);
+  var form = $('#recommend').toggle().find('form').first();
+  form.trigger('reset');
+  form.find('input[name="category"]').val(share.data('category'))
+}
+
 function popup(type) {
   switch (type) {
     case 'submit':
@@ -185,8 +193,13 @@ function handleForm(url) {
       contentType: 'application/json',
       data: JSON.stringify(obj)
     }).success(function() {
-      alert('提交成功');
+      if (/submits/.test(url)) {
+        alert('感谢您的分享, 已提交至管理员审核, 审核通过后我们将通过邮件通知您');
+      } else {
+        alert('提交成功, 感谢您的反馈');
+      }
       form.trigger("reset");
+      $('.popup').hide();
     }).error(function (xhr) {
       if (xhr.status < 500) {
         alert('提交失败: ' + xhr.responseJSON && xhr.responseJSON.message);
