@@ -1,4 +1,4 @@
-- var version = 1.0
+- var version = 1.1
 doctype html
 html
   head
@@ -11,7 +11,7 @@ html
       #gloss
     #container
       #search-area
-        img#logo(src='assets/img/badu-nav-logo.png')
+        img#logo(src='assets/img/nav-logo.png')
         #search
           input#search-input(autocomplete="off")
           button#search-button(type='button') 搜 索
@@ -48,6 +48,7 @@ html
               ul.second-classes(data-active=category.slug + '-hot')
                 each subcategory in category.subcategories
                   li(data-target=category.slug + '-' + subcategory.slug, class=subcategory.slug === 'hot' && 'active' data-category=category.slug data-icon-url=subcategory.icon_url data-description = subcategory.description) #{subcategory.name}
+              a.share(href="javascript:void(0)", data-category=category.name) 我要分享
               .link-page
                 each subcategory in category.subcategories
                   .links(id=category.slug + '-' + subcategory.slug, class=subcategory.slug === 'hot' && 'active')
@@ -55,13 +56,13 @@ html
                       a(href=website.url, data-description=website.description, data-icon-url=website.icon_url data-category=category.slug target="_blank" data-id=website._id) #{website.name}
     #footer
       .text
-        | 如果你有什么想推荐的网站, 点击
-        a(href='javascript:' onclick='popup("submit")') 这里
-        | 来推荐吧
+        | Copyright &copy; 八度导航 2016
       .text
-        | 如果你觉得本站还有那些地方做的不好, 点击
-        a(href='javascript:' onclick='popup("feedback")') 这里
-        | 来反馈吧
+        | 如果你觉得本站还有那些地方做的不好，
+        a(href='javascript:' onclick='popup("feedback")') 点击这里来反馈吧
+      .text
+        | Powered by &nbsp;合肥工业大学（宣城校区）
+        a(href="https://xcsoft.hfut.edu.cn") 软件工程创新实验室
 
     #recommend.popup
       .title 网址推荐
@@ -77,12 +78,12 @@ html
           input(name='category', autocomplete="off")
         .line
           span 推荐语
-          textarea(name='description', placeholder='一句话体现出网站的特色, 吸引其它用户点击')
+          textarea(name='description', placeholder='一句话体现出网站的特色')
         .line
           span  推荐人 Email
           input(name='email')
-        button(type='submit') 提交
-        button(type='button', onclick="closepop()") 取消
+        button.btn.btn-submit(type='submit') 提交
+        button.btn.btn-cancel(type='button', onclick="closepop()") 取消
 
     #feedback.popup
       .title 意见反馈
@@ -93,8 +94,8 @@ html
         .line
           span 反馈内容
           textarea(name='content', placeholder='对本站有什么不满的, 大声说出来吧')
-        button(type='submit') 提交
-        button(type='button', onclick="closepop()") 取消
+        button.btn.btn-submit(type='submit') 提交
+        button.btn.btn-cancel(type='button', onclick="closepop()") 取消
 
 
     #ctrl-panel
