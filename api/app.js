@@ -8,6 +8,7 @@ const configs = require('./configs');
 const app = new Koa();
 
 app.use(middlewares.errorHandling);
+app.use(middlewares.verify);
 app.use(convert(bodyparser()));
 app.use(controllers);
 

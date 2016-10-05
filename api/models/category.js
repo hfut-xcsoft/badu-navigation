@@ -46,7 +46,7 @@ CategorySchema.statics = {
     return this.findOne({slug}).populate('subcategories').exec();
   },
   getGroupedWebsites: function () {
-    return this.find({}, {_id: 0}, { sort: { weights: -1 }})
+    return this.find({}, {_id: 0, weights: 0}, { sort: { weights: -1 }})
       .populate({
         path: 'subcategories',
         options: { sort: { weights: -1 } },
