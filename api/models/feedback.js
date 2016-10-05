@@ -16,6 +16,8 @@ FeedbackSchema.methods = {
 
 FeedbackSchema.statics = {
   getFeedbacksByQuery: function (query, opt) {
+    opt = opt || {};
+    opt.sort = Object.assign({ _id: -1}, opt && opt.sort);
     return this.find(query, {}, opt).exec();
   }
 };

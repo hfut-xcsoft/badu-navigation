@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const SubmitSchema = new Schema({
-  time: Date,
+  time: { type: Date, default: Date.now },
   name: String,
   url: String,
   description: String,
@@ -25,6 +25,8 @@ SubmitSchema.methods = {
 
 SubmitSchema.statics = {
   getByQuery: function (query, opt) {
+    opt = opt || {};
+    opt.sort = Object.assign({ _id: -1}, opt && opt.sort);
     return this.find(query, {}, opt).exec();
   },
   getById: function (id) {

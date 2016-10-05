@@ -29,7 +29,7 @@ WebsiteSchema.methods = {
 WebsiteSchema.statics = {
   getByQuery: function (query, opt, field) {
     opt = opt || {};
-    opt.sort = Object.assign({ weights: -1 }, opt && opt.sort);
+    opt.sort = Object.assign({ subcategory: 1, weights: -1 }, opt && opt.sort);
     return this.find(query, field, opt).exec();
   },
   getById: function (id) {
