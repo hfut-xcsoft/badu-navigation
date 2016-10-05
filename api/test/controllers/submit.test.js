@@ -36,7 +36,7 @@ describe('Test controllers/submit.js', () => {
         .expect(res => {
           expect(res.body).to.have.length.of(1);
           expect(res.body[0]).to.have.all.keys([
-            '_id', 'name', 'url', 'description', 'category', 'email'
+            '_id', 'time', 'name', 'url', 'description', 'category', 'email'
           ]);
           submit._id = res.body[0]._id;
         })

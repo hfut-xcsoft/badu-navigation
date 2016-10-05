@@ -1,5 +1,6 @@
 const helper = {};
 const mongoose = require('mongoose');
+const jwt = require('../../commons/jwt');
 
 helper.clear = (collection, callback) => {
   return new Promise((resolve, reject)  => {
@@ -17,6 +18,12 @@ helper.create = (collection, obj, callback) => {
       resolve(result);
     });
   })
+};
+
+helper.getAdminAuthority = () => {
+  return {
+    Authorization: 'Bearer ' + jwt.create({username: 'test', user_type: 'admin'})
+  }
 };
 
 module.exports = helper;
