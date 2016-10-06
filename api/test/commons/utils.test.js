@@ -67,4 +67,16 @@ describe('common/utils.js', () => {
       expect(utils.toNormalUrl('https://dremy.cn')).to.equal('https://dremy.cn');
     })
   })
+
+  describe('Test dateFormat()', () => {
+    it('format Date object', () => {
+      const now = new Date('2014-01-01 10:00:00');
+      expect(utils.dateFormat(now)).to.equal('2014 年 01 月 01 日');
+    });
+    it('format timestamp', () => {
+      const now = new Date('2014-01-01 10:00:00').getTime();
+      expect(utils.dateFormat(now)).to.equal('2014 年 01 月 01 日');
+    });
+  })
+
 })

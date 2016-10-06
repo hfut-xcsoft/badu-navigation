@@ -9,7 +9,7 @@ const SubmitSchema = new Schema({
   description: String,
   category: String,
   email: String,
-  status: Number,
+  status: { type: Number, default: 0 },
   __v: { type: Number,  select: false }
 });
 

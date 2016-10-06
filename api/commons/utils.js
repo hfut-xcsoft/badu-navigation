@@ -20,4 +20,16 @@ utils.toNormalUrl = (url) => {
   return url;
 };
 
+utils.dateFormat = (date) => {
+  if (!(date instanceof Date)) {
+    date = new Date(date);
+  }
+  const yyyy = date.getFullYear();
+  const d = date.getDate();
+  const m = date.getMonth() + 1;
+  const mm = m  < 10 ? '0' + m : m;
+  const dd = d  < 10 ? '0' + d : d;
+  return  `${yyyy} 年 ${mm} 月 ${dd} 日`;
+}
+
 module.exports = utils;

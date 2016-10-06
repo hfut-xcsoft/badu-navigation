@@ -36,7 +36,7 @@ describe('Test controllers/submit.js', () => {
         .expect(res => {
           expect(res.body).to.have.length.of(1);
           expect(res.body[0]).to.have.all.keys([
-            '_id', 'time', 'name', 'url', 'description', 'category', 'email'
+            '_id', 'time', 'name', 'url', 'description', 'category', 'email', 'status'
           ]);
           submit._id = res.body[0]._id;
         })
@@ -44,6 +44,19 @@ describe('Test controllers/submit.js', () => {
     })
   });
   describe('PUT /submits/:submit', () => {
+    it('get 404 if status is not exist', done => {
+      request(app)
+        .put(`/submits/${submit._id}`)
+        .expect(400)
+        .end(done);
+    });
+    it('get 304 with same status', done => {
+      request(app)
+        .put(`/submits/${submit._id}`)
+        .send({status: 0})
+        .expect(304)
+        .end(done);
+    });
     it('update submit status successfully', done => {
       request(app)
         .put(`/submits/${submit._id}`)
@@ -53,27 +66,28 @@ describe('Test controllers/submit.js', () => {
           expect(res.body.status).to.equal(1);
         })
         .end(done);
-    })
-    it('get 400 if id is not ObjectId', done => {
-      request(app)
-        .put(`/submits/1234`)
-        .send({status: 1})
-        .expect(400)
-        .end(done);
-    })
-    it('get 404 if submit is not exist', done => {
-      request(app)
-        .put(`/submits/${'a'.repeat(24)}`)
-        .send({status: 1})
-        .expect(404)
-        .end(done);
-    })
-    it('get 404 if status is not exist', done => {
+    });
+    it('get 400 if update submit status to 3 with no enough info', done => {
       request(app)
         .put(`/submits/${submit._id}`)
+        .send({status: 3})
         .expect(400)
+        .end(done);
+    });
+    it('update submit status to 3 successful', done => {
+      request(app)
+        .put(`/submits/${submit._id}`)
+        .send({status: 3, url: 'http://example.com', name: 'example', subcategory: 'a'.repeat(24), category: 'a'.repeat(24)})
+        .expect(201)
+        .expect(res => {
+          expect(res.body.status).to.equal(3);
+        })
         .end(done);
     })
   })
-  after(() => helper.clear('submits'))
-})
+
+  after(() => Promise.all([
+    helper.clear('submits'),
+    helper.clear('websites')
+  ]));
+});
