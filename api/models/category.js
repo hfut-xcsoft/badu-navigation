@@ -29,7 +29,7 @@ CategorySchema.methods = {
   },
   removeSubcategory: function (subcategory) {
     return Category.update({_id: this._id},
-      {$pop: {subcategories: subcategory._id}}).exec()
+      {$pull: {subcategories: subcategory._id}}).exec()
   }
 };
 
