@@ -80,10 +80,8 @@ subcategoryController.removeSubcategory = async ctx => {
   if (!category) {
     throw new HttpError.NotFoundError('一级分类不存在');
   }
-  await Promise.all([
-    subcategory.delete(),
-    category.removeSubcategory(subcategory)
-  ]);
+  await category.removeSubcategory(subcategory);
+  await subcategory.delete();
   ctx.status = 204;
   ctx.body = null;
 };

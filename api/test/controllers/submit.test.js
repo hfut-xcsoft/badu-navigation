@@ -74,17 +74,14 @@ describe('Test controllers/submit.js', () => {
         .expect(400)
         .end(done);
     });
-    it('update submit status to 3 successful', done => {
+    it('get 400 if subcategory is not existed', done => {
       request(app)
         .put(`/submits/${submit._id}`)
-        .send({status: 3, url: 'http://example.com', name: 'example', subcategory: 'a'.repeat(24), category: 'a'.repeat(24)})
-        .expect(201)
-        .expect(res => {
-          expect(res.body.status).to.equal(3);
-        })
+        .send({status: 3, url: 'http://example.com', name: 'example', subcategory: 'a'.repeat(24)})
+        .expect(400)
         .end(done);
-    })
-  })
+    });
+  });
 
   after(() => Promise.all([
     helper.clear('submits'),

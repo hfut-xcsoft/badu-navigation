@@ -37,7 +37,13 @@ submitController.createSubmit = async ctx => {
 };
 
 submitController.getAllSubmits = async ctx => {
-  ctx.body = await Submit.getByQuery();
+  const queryObj = {};
+  if (typeof ctx.query.status !== 'undefined') {
+    queryObj.status = {
+      $in: ctx.query.status
+    }
+  }
+  ctx.body = await Submit.getByQuery(queryObj);
 };
 
 submitController.updateSubmitStatus = async ctx => {
@@ -46,7 +52,7 @@ submitController.updateSubmitStatus = async ctx => {
     throw new HttpError.BadRequestError('请输入合法 ID');
   }
   const body = easycopy(ctx.request.body,
-    ['status', 'name', 'url', 'icon_url', 'description', 'weights', 'subcategory', 'category']);
+    ['status', 'name', 'url', 'icon_url', 'description', 'weights', 'subcategory']);
   if (typeof body.status === 'undefined') {
     throw new HttpError.BadRequestError('status 不存在')
   }
@@ -60,7 +66,7 @@ submitController.updateSubmitStatus = async ctx => {
   }
 
   if (body.status == SUBMIT_STATE.RESOLVED) {
-    if (!body.category || !body.subcategory) {
+    if (!body.subcategory) {
       throw new HttpError.BadRequestError('请将要收录的分类信息填写完整');
     }
     if (!body.name || !body.url) {
@@ -69,16 +75,18 @@ submitController.updateSubmitStatus = async ctx => {
     body.recommend_by = submit.email;
     body.url = utils.toNormalUrl(body.url);
 
+    const subcategory = await Subcategory.getById(body.subcategory);
+    if (!subcategory) {
+      throw new HttpError.BadRequestError('分类未找到')
+    }
     // Add website
     Promise.all([
       new Website(body).create(),
-      Category.getById(body.category),
-      Subcategory.getById(body.subcategory)
+      Category.getById(subcategory.category)
     ]).then(results => {
       const website = results[0];
       const category = results[1];
-      const subcategory = results[2];
-      subcategory && subcategory.pushWebsite(website);
+      subcategory.pushWebsite(website);
       mailUtil.sendTestimonialToSubmit(submit, website, category, subcategory);
     })
   }
