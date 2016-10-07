@@ -110,7 +110,7 @@ function search() {
   var url;
   switch (engine) {
     case 'google':
-      url = 'https://letsgg.tk/search?q=' + encodeURIComponent(content);
+      url = 'https://g.hancel.net/search?q=' + encodeURIComponent(content);
       break;
 
     case 'bing':
