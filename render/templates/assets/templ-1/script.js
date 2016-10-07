@@ -1,7 +1,16 @@
+var tabChangeTimeout;
 $(function () {
   init();
   $('#engines input').click(saveEngine);
-  $('.second-classes').mouseover(menuDelegate);
+  $('.second-classes').mouseover(function (e) {
+    var self = this;
+    tabChangeTimeout = setTimeout(function(){
+      menuDelegate.call(self, e)
+    }, 300);
+  });
+  $('.second-classes').mouseout(function (e) {
+    clearTimeout(tabChangeTimeout)
+  });
   $('.share').click(handleShare);
   $('.link-page').mouseover(linkHoverDelegate);
   $('.link-page').mouseleave(linkOutDelegate);
