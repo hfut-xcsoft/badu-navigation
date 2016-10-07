@@ -1,7 +1,16 @@
+var tabChangeTimeout;
 $(function () {
   init();
   $('#engines input').click(saveEngine);
-  $('.second-classes').mouseover(menuDelegate);
+  $('.second-classes').mouseover(function (e) {
+    var self = this;
+    tabChangeTimeout = setTimeout(function(){
+      menuDelegate.call(self, e)
+    }, 300);
+  });
+  $('.second-classes').mouseout(function (e) {
+    clearTimeout(tabChangeTimeout)
+  });
   $('.share').click(handleShare);
   $('.link-page').mouseover(linkHoverDelegate);
   $('.link-page').mouseleave(linkOutDelegate);
@@ -110,7 +119,7 @@ function search() {
   var url;
   switch (engine) {
     case 'google':
-      url = 'https://letsgg.tk/search?q=' + encodeURIComponent(content);
+      url = 'https://g.hancel.net/search?q=' + encodeURIComponent(content);
       break;
 
     case 'bing':
